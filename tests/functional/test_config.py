@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 
 
+from importlib import reload
 import os
 import unittest
 
-from venra import client
-from venra import system
+from venra import config
 
 
-class TestSystem(unittest.TestCase):
+class TestConfig(unittest.TestCase):
 
     def setUp(self):
         unittest.TestCase.setUp(self)
@@ -16,7 +16,8 @@ class TestSystem(unittest.TestCase):
     def tearDown(self):
         unittest.TestCase.tearDown(self)
 
-    def test_system_version(self):
+    def test_config_override_file(self):
+        reload(config)
         self.assertTrue(True)
 
 

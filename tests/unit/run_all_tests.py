@@ -13,10 +13,14 @@ import random
 import test_true
 import test_config
 import test_client
+import test_document
+import test_search
 import test_system
+import test_visit
 
 
-test_modules = (test_true, test_config, test_client, test_system)
+test_modules = (test_true, test_config, test_client, 
+                test_document, test_search, test_system, test_visit)
 
 suite_list = []
 for testmod in test_modules:

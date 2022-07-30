@@ -4,19 +4,20 @@
 import os
 import unittest
 
-from venra import client
-from venra import system
+from venra import config
+from venra import visit
 
 
-class TestSystem(unittest.TestCase):
+class TestVisit(unittest.TestCase):
 
     def setUp(self):
         unittest.TestCase.setUp(self)
+        config.load_overrides_from_env()
 
     def tearDown(self):
         unittest.TestCase.tearDown(self)
 
-    def test_system_version(self):
+    def test_visit_basic(self):
         self.assertTrue(True)
 
 

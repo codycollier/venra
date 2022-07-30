@@ -6,14 +6,15 @@ import unittest
 
 import requests
 
-from venra import client
 from venra import config
+from venra import client
 
 
 class TestClient(unittest.TestCase):
 
     def setUp(self):
         unittest.TestCase.setUp(self)
+        config.load_overrides_from_env()
 
     def tearDown(self):
         unittest.TestCase.tearDown(self)

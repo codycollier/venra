@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 
+from importlib import reload
 import os
 import unittest
 
@@ -16,6 +17,7 @@ class TestConfig(unittest.TestCase):
         unittest.TestCase.tearDown(self)
 
     def test_config_defaults(self):
+        reload(config)
         self.assertEqual(config.vespa_host_cfg, "http://127.0.0.1:19071")
         self.assertEqual(config.vespa_host_app, "http://127.0.0.1:8080")
 
@@ -25,6 +27,7 @@ class TestConfig(unittest.TestCase):
         os.environ["VESPA_HOST_APP"] = "http://10.0.0.1:8083"
 
         # assert defaults before override
+        reload(config)
         self.assertEqual(config.vespa_host_cfg, "http://127.0.0.1:19071")
         self.assertEqual(config.vespa_host_app, "http://127.0.0.1:8080")
 
