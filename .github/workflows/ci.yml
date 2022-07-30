@@ -28,9 +28,9 @@ jobs:
         include:
           # pypy-3.7 on Mac OS currently fails trying to compile
           # brotlipy. Moving pypy3 to only test linux.
-          - python-version: pypy-3.7
-            os: ubuntu-latest
-            experimental: false
+          #- python-version: pypy-3.7
+          #  os: ubuntu-latest
+          #  experimental: false
 
     steps:
     - uses: actions/checkout@v2
