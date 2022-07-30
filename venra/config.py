@@ -12,9 +12,8 @@ import os
 #------------------------------------------------------------------------------
 
 # Vespa
-vespa_host = "127.0.0.1"
-vespa_port_cfg = "19071"
-vespa_port_app = "8080"
+vespa_host_cfg = "http://127.0.0.1:19071"
+vespa_host_app = "http://127.0.0.1:8080"
 
 # Venra
 baz = True
@@ -31,17 +30,13 @@ def load_overrides_from_env():
     > export VESPA_HOST="192.168.1.50"
     """
 
-    if "VESPA_HOST" in os.environ:
-        global vespa_host
-        vespa_host = os.environ["VESPA_HOST"]
+    if "VESPA_HOST_CFG" in os.environ:
+        global vespa_host_cfg
+        vespa_host_cfg = os.environ["VESPA_HOST_CFG"]
 
-    if "VESPA_PORT_CFG" in os.environ:
-        global vespa_port_cfg
-        vespa_port_cfg = os.environ["VESPA_PORT_CFG"]
-
-    if "VESPA_PORT_APP" in os.environ:
-        global vespa_port_app
-        vespa_port_app = os.environ["VESPA_PORT_APP"]
+    if "VESPA_HOST_APP" in os.environ:
+        global vespa_host_app
+        vespa_host_app = os.environ["VESPA_HOST_APP"]
 
     return
 
