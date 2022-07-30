@@ -6,10 +6,10 @@ import unittest
 
 from venra import client
 from venra import config
-from venra import ops
+from venra import system
 
 
-class TestOps(unittest.TestCase):
+class TestSystem(unittest.TestCase):
 
     def setUp(self):
         unittest.TestCase.setUp(self)
@@ -18,9 +18,9 @@ class TestOps(unittest.TestCase):
     def tearDown(self):
         unittest.TestCase.tearDown(self)
 
-    def test_ops_version(self):
-        version_app = ops.version_app()
-        version_cfg = ops.version_cfg()
+    def test_version(self):
+        version_app = system.version_app()
+        version_cfg = system.version_cfg()
         self.assertEqual(version_app.count("."), 2)
         self.assertEqual(version_cfg.count("."), 2)
 

@@ -5,10 +5,10 @@ import os
 import unittest
 
 from venra import client
-from venra import ops
+from venra import system
 
 
-class TestOps(unittest.TestCase):
+class TestSystem(unittest.TestCase):
 
     def setUp(self):
         unittest.TestCase.setUp(self)
@@ -16,10 +16,10 @@ class TestOps(unittest.TestCase):
     def tearDown(self):
         unittest.TestCase.tearDown(self)
 
-    def test_ops_version(self):
+    def test_system_version(self):
         # todo: mock client
-        # version_cfg = ops.version_cfg()
-        # version_app = ops.version_app()
+        # version_cfg = system.version_cfg()
+        # version_app = system.version_app()
         pass
 
 

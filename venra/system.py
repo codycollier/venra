@@ -1,4 +1,4 @@
-"""Vespa operational apis
+"""Vespa system apis
 
 """
 
