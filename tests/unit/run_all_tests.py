@@ -11,9 +11,10 @@ import unittest
 import random
 
 import test_true
+import test_config
 
 
-test_modules = (test_true, )
+test_modules = (test_true, test_config)
 
 suite_list = []
 for testmod in test_modules:
