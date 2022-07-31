@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 exec(open('venra/version.py').read())
 
-with open("README.md", "r", "utf-8") as f:
+with open("README.md", mode="r", encoding="utf-8") as f:
     readme_contents = f.read()
 
 
@@ -14,7 +14,7 @@ setup(
   description = 'venra',
   author = 'Cody Collier',
   author_email = 'cody@telnet.org',
-    long_description=readme_contents,
+  long_description=readme_contents,
   long_description_content_type = 'text/markdown',
   url = 'https://github.com/codycollier/venra',
   keywords = [
