@@ -1,6 +1,9 @@
 from setuptools import setup, find_packages
 exec(open('venra/version.py').read())
 
+with open("README.md", "r", "utf-8") as f:
+    readme = f.read()
+
 setup(
   name = 'venra',
   packages = find_packages(exclude=[]),
@@ -17,6 +20,7 @@ setup(
     'machine learning',
     'search',
   ],
+  python_requires=">=3.7, <4",
   install_requires=[
     'packaging',
     'requests',
@@ -26,6 +30,10 @@ setup(
     'Intended Audience :: Developers',
     'Topic :: Scientific/Engineering :: Artificial Intelligence',
     'License :: OSI Approved :: MIT License',
-    'Programming Language :: Python :: 3.6',
+    'Programming Language :: Python :: 3',
+    'Programming Language :: Python :: 3.7',
+    'Programming Language :: Python :: 3.8',
+    'Programming Language :: Python :: 3.9',
+    'Programming Language :: Python :: 3.10',
   ],
 )
