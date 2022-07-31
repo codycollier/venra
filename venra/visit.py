@@ -19,7 +19,7 @@ def feed(namespace, doctype, selection=None):
 
     # page through results
     while True:
-        for d in vr.get("documents"):
+        for d in vr.get("documents", []):
             yield d
         continuation = vr.get("continuation", False)
         if continuation:
