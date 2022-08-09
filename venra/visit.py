@@ -15,7 +15,10 @@ def feed(namespace, doctype, selection=None):
 
     # initial call
     vc = client.get_vespa_client()
-    vr = vc.get(f"{visit_base_uri}").json()
+    if selection:
+        vr = vc.get(f"{visit_base_uri}?selection={selection}").json()
+    else:
+        vr = vc.get(f"{visit_base_uri}").json()
 
     # page through results
     while True:
