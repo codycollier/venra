@@ -26,7 +26,7 @@ def partial_update(namespace, doctype, docid, operations):
         }
     }
     """
-    base_uri = f"{config.vespa_host_app}/document/v1/{namespace}/{doctype}/{docid}"
+    base_uri = f"{config.vespa_host_app}/document/v1/{namespace}/{doctype}/docid/{docid}"
     partial_update = {"fields": {}}
     for operation, field_name, field_value in operations:
         partial_update["fields"][field_name] = {operation: field_value}
