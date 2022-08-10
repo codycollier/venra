@@ -25,8 +25,11 @@ setup(
   ],
   python_requires=">=3.7, <4",
   install_requires=[
+    'numpy',
     'packaging',
     'requests',
+    'torch',
+    'transformers',
   ],
   classifiers=[
     'Development Status :: 4 - Beta',
