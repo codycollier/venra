@@ -22,13 +22,18 @@ def feed(namespace, doctype, selection=None):
 
     # page through results
     while True:
+
+        # yield each doc from the results
         for d in vr.get("documents", []):
             yield d
+
+        # check for continuation / more results
         continuation = vr.get("continuation", False)
-        if continuation:
-            vr = vc.get(f"{visit_base_uri}?continuation={continuation}").json()
-        else:
+        if not continuation:
             break
+
+        # retrieve the next set of results
+        vr = vc.get(f"{visit_base_uri}?continuation={continuation}").json()
 
     return
 
