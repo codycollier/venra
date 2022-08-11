@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
-# Sample program to iterate through docs via visit
+# Sample program to iterate through docs via search
 #
 #
 
