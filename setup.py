@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-exec(open('venra/version.py').read())
+exec(open('venra/__version__.py').read())
 
 with open("README.md", mode="r", encoding="utf-8") as f:
     readme_contents = f.read()
