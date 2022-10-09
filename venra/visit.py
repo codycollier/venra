@@ -1,4 +1,12 @@
-"""Vespa visit api
+"""venra.visit
+
+Implementation for the visit subset of the document api
+
+
+Vespa documentation:
+* https://docs.vespa.ai/en/content/visiting.html
+* https://docs.vespa.ai/en/reference/document-v1-api-reference.html#visit
+
 
 """
 

@@ -1,4 +1,12 @@
-"""Vespa search api
+"""venra.query
+
+Implementation for the Vespa query api
+
+
+Vespa documentation:
+* https://docs.vespa.ai/en/query-api.html
+* https://docs.vespa.ai/en/reference/query-api-reference.html
+
 
 """
 
