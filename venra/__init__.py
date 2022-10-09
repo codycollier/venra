@@ -1,10 +1,10 @@
 
+from .__version__ import __version__
 from . import client
 from . import config
 from . import document
-from . import search
+from . import query
 from . import system
-from . import version
 from . import visit
 
 

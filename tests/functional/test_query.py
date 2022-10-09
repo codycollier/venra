@@ -5,7 +5,7 @@ import os
 import unittest
 
 from venra import config
-from venra import search
+from venra import query
 
 
 class TestSearch(unittest.TestCase):
