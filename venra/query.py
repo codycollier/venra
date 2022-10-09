@@ -1,9 +1,9 @@
 """venra.query
 
-Implementation for the Vespa query api
+A module for interacting with the Vespa query api
 
 
-Vespa documentation:
+Related Vespa documentation:
 * https://docs.vespa.ai/en/query-api.html
 * https://docs.vespa.ai/en/reference/query-api-reference.html
 

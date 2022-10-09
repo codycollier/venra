@@ -1,7 +1,11 @@
-"""Configuration values, access, and management
+"""venra.config
+
+A module for accessing and managing config for venra itself.
 
 The default configuration targets a local, single-node instance of Vespa with
 all standard ports and configuration.
+
+
 """
 
 import os

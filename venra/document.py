@@ -1,9 +1,9 @@
 """venra.document
 
-Implementation for the Vespa document api
+A module for interacting with the Vespa document api.
 
 
-Vespa documentation:
+Related Vespa documentation:
 * https://docs.vespa.ai/en/document-v1-api-guide.html
 * https://docs.vespa.ai/en/reference/document-v1-api-reference.html
 

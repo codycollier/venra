@@ -1,4 +1,10 @@
-"""Vespa client
+"""venra.client
+
+A module for creating and managing the venra client. 
+
+This is generally a thin wrapper around a requests session client, allowing
+for cross cutting access across the venra package.
+
 
 """
 
