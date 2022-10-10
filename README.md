@@ -6,7 +6,8 @@
 [![PyPI version](https://badge.fury.io/py/venra.svg)](https://badge.fury.io/py/venra)
 
 
-Venra is a python client library for [vespa.ai](https://vespa.ai)
+Venra is a python client library for [vespa.ai](https://vespa.ai). It provides
+a high-level api for interacting with Vespa's query, document, and system apis.
 
 
 Note: This library is under active development and the api is currently unstable.
