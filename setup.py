@@ -11,7 +11,7 @@ setup(
   packages = find_packages(exclude=[]),
   version = __version__,
   license='MIT',
-  description = 'venra',
+  description = 'A python client library for vespa.ai',
   author = 'Cody Collier',
   author_email = 'cody@telnet.org',
   long_description=readme_contents,
