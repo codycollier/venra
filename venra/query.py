@@ -30,10 +30,11 @@ def search(qdata):
     qresults = requests.post(f"{search_base_uri}", json=qdata).json()
     qstopped = time.time()
     elapsed = qstopped - qstarted
-    return qresults, elapsed
+    qresults["venra"] = {"elapsed_ms": elapsed}
+    return qresults
 
 
-def extract_metrics(qresults, elapsed):
+def extract_metrics(qresults):
     """Return key metrics, timings, etc from the search response
 
     This is an optional convenience function for extracting various key metrics
@@ -47,7 +48,7 @@ def extract_metrics(qresults, elapsed):
         qmet["querytime"] = qresults["timing"]["querytime"]
         qmet["searchtime"] = qresults["timing"]["searchtime"]
         qmet["summaryfetchtime"] = qresults["timing"]["summaryfetchtime"]
-    qmet["elapsed_ms"] = round(1000 * elapsed, 3)
+    qmet["elapsed_ms"] = round(1000 * qresults["venra"]["elapsed_ms"], 3)
     return qmet
 
 
