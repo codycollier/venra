@@ -8,7 +8,6 @@ Related Vespa documentation:
 * https://docs.vespa.ai/en/reference/query-api-reference.html
 
 
-
 """
 
 from collections import OrderedDict
@@ -21,15 +20,24 @@ from . import config
 from . import exceptions
 
 
-def _vespa_post(qdata):
-    """Internal wrapper for search api http call handling
+def _api_err_check(response):
+    """Common error checking for http responses from the query apis
 
     Related Vespa documentation:
     * https://docs.vespa.ai/en/reference/query-api-reference.html#http-status-codes
     """
+    if response.status_code != 200:
+        err = f"unexpected response {response.status_code} {response.url}"
+        raise exceptions.VespaRequestError(err)
+
+
+def _vespa_post(qdata):
+    """Internal wrapper for search api http call handling"""
     base_uri = f"{config.vespa_host_app}/search/"
     vc = client.get_vespa_client()
-    vr = vc.post(f"{base_uri}", json=qdata).json()
+    vr = vc.post(f"{base_uri}", json=qdata)
+    _api_err_check(vr)
+    vr = vr.json()
     return vr
 
 

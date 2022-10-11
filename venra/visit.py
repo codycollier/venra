@@ -16,6 +16,14 @@ from . import config
 from . import exceptions
 
 
+def _api_err_check(response):
+    """Common error checking for http responses from the visit api"""
+
+    if response.status_code != 200:
+        err = f"unexpected response {response.status_code} {response.url}"
+        raise exceptions.VespaRequestError(err)
+
+
 def _vespa_get(namespace, doctype, selection=None, continuation=None):
     """Internal wrapper for visit api http call handling"""
     base_uri = f"{config.vespa_host_app}/document/v1/{namespace}/{doctype}/docid"
@@ -23,11 +31,14 @@ def _vespa_get(namespace, doctype, selection=None, continuation=None):
     vc = client.get_vespa_client()
 
     if selection:
-        vr = vc.get(f"{base_uri}?selection={selection}").json()
+        vr = vc.get(f"{base_uri}?selection={selection}")
     elif continuation:
-        vr = vc.get(f"{base_uri}?continuation={continuation}").json()
+        vr = vc.get(f"{base_uri}?continuation={continuation}")
     else:
-        vr = vc.get(f"{base_uri}").json()
+        vr = vc.get(f"{base_uri}")
+
+    _api_err_check(vr) 
+    vr = vr.json()
 
     return vr
 

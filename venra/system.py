@@ -25,10 +25,20 @@ from . import config
 from . import exceptions
 
 
+def _api_err_check(response):
+    """Common error checking for http responses from the system apis"""
+
+    if response.status_code != 200:
+        err = f"unexpected response {response.status_code} {response.url}"
+        raise exceptions.VespaRequestError(err)
+
+
 def _vespa_get(full_uri):
     """Internal wrapper for system api http call handling"""
     vc = client.get_vespa_client()
-    vr = requests.get(f"{full_uri}").json()
+    vr = requests.get(f"{full_uri}")
+    _api_err_check(vr)
+    vr = vr.json()
     return vr
 
 

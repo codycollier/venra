@@ -19,11 +19,25 @@ from . import config
 from . import exceptions
 
 
+def _api_err_check(response):
+    """Common error checking for http responses from the document api"""
+
+    if response.status_code == 404:
+        err = f"{response.url}"
+        raise exceptions.VespaItemDoesNotExist(err)
+
+    elif response.status_code != 200:
+        err = f"unexpected response {response.status_code} {response.url}"
+        raise exceptions.VespaRequestError(err)
+
+
 def _vespa_get(namespace, doctype, docid):
     """Internal wrapper for document api and http get handling"""
     base_uri = f"{config.vespa_host_app}/document/v1/{namespace}/{doctype}/docid/{docid}"
     vc = client.get_vespa_client()
     vr = vc.get(f"{base_uri}")
+    _api_err_check(vr)
+    vr = vr.json()
     return vr
 
 
@@ -32,7 +46,8 @@ def _vespa_post(namespace, doctype, docid, doc):
     base_uri = f"{config.vespa_host_app}/document/v1/{namespace}/{doctype}/docid/{docid}"
     vc = client.get_vespa_client()
     vr = vc.post(f"{base_uri}", json=doc)
-    return vr 
+    _api_err_check(vr)
+    return
 
 
 def _vespa_put(namespace, doctype, docid, update):
@@ -40,7 +55,8 @@ def _vespa_put(namespace, doctype, docid, update):
     base_uri = f"{config.vespa_host_app}/document/v1/{namespace}/{doctype}/docid/{docid}"
     vc = client.get_vespa_client()
     vr = vc.put(f"{base_uri}", json=update)
-    return vr
+    _api_err_check(vr)
+    return
 
 
 def _vespa_delete(namespace, doctype, docid):
@@ -48,7 +64,8 @@ def _vespa_delete(namespace, doctype, docid):
     base_uri = f"{config.vespa_host_app}/document/v1/{namespace}/{doctype}/docid/{docid}"
     vc = client.get_vespa_client()
     vr = vc.delete(f"{base_uri}")
-    return vr
+    _api_err_check(vr)
+    return
 
 
 def get(namespace, doctype, docid, fields_only=True):
@@ -62,8 +79,8 @@ def get(namespace, doctype, docid, fields_only=True):
 def put(namespace, doctype, docid, doc):
     """Add or update a whole document"""
     doc_fields = {"fields": doc}
-    vr = _vespa_post(namespace, doctype, docid, doc_fields)
-    return vr
+    _vespa_post(namespace, doctype, docid, doc_fields)
+    return True
 
 
 def update(namespace, doctype, docid, operations):
@@ -86,13 +103,13 @@ def update(namespace, doctype, docid, operations):
     partial_update = {"fields": {}}
     for operation, field_name, field_value in operations:
         partial_update["fields"][field_name] = {operation: field_value}
-    vr = _vespa_put(namespace, doctype, docid, partial_update)
-    return vr
+    _vespa_put(namespace, doctype, docid, partial_update)
+    return True
 
 
 def remove(namespace, doctype, docid):
     """Delete a document"""
-    vr = _vespa_delete(namespace, doctype, docid)
-    return vr
+    _vespa_delete(namespace, doctype, docid)
+    return True
 
 

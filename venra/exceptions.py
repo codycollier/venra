@@ -14,7 +14,7 @@ class VespaConnectionError(VespaException):
     """An error connecting to Vespa"""
 
 
-class VespaCallError(VespaException):
+class VespaRequestError(VespaException):
     """A general error making a call to Vespa"""
 
 
