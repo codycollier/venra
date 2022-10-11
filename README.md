@@ -6,19 +6,39 @@
 [![PyPI version](https://badge.fury.io/py/venra.svg)](https://badge.fury.io/py/venra)
 
 
-Venra is a python client library for [vespa.ai](https://vespa.ai). It provides
-a high-level api for interacting with Vespa's query, document, and system apis.
+Venra provides a simple, high-level api for [vespa.ai](https://vespa.ai).
 
+Venra targets subsets of Vespa's query, document, and system apis. It aims to 
+encapsulate the complexity of dealing with the Vespa http interfaces, response
+behaviors, and json responses for common client tasks.
+
+Venra is well suited for web backends, command line tools, and enrichment
+programs which need to retrieve, process, and update documents.
+
+A simple query:
+
+```python
+import venra
+
+qdata = {}
+qdata["yql"] = "select * from sources awesome_docs;"
+response = venra.query.search(qdata)
+
+docs = venra.query.extract_docs(response)
+for r, doc in enumerate(docs):
+    print(f"rank: {r} >> {doc.some_id} title: {doc.title}")
+```
 
 Note: This library is under active development and the api is currently unstable.
 
 
 
-### Install
+### Installation
 
 ```bash
 $ pip install venra
 ```
+
 
 ### Usage
 
