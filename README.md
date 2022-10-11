@@ -15,7 +15,6 @@ behaviors, and json responses for common client tasks.
 Venra is well suited for web backends, command line tools, and enrichment
 programs which need to retrieve, process, and update documents.
 
-A simple query:
 
 ```python
 import venra
