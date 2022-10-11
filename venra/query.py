@@ -21,7 +21,7 @@ from . import exceptions
 
 
 def _api_err_check(response):
-    """Common error checking for http responses from the query apis
+    """Error handling for http responses unique to the query api
 
     Related Vespa documentation:
     * https://docs.vespa.ai/en/reference/query-api-reference.html#http-status-codes

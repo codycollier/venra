@@ -20,7 +20,7 @@ from . import exceptions
 
 
 def _api_err_check(response):
-    """Common error checking for http responses from the document api"""
+    """Error handling for http responses unique to the document api"""
 
     if response.status_code == 404:
         err = f"{response.url}"
