@@ -10,12 +10,12 @@ class VenraException(Exception):
     """A base exception for unexpected errors"""
 
 
-class VespaConnectionError(VenraException):
+class VespaCommunicationError(VenraException):
     """An error connecting to Vespa"""
 
 
 class VespaRequestError(VenraException):
-    """A general error making a call to Vespa"""
+    """A general error as a result of making a request to Vespa"""
 
 
 class VespaItemDoesNotExist(VenraException):
