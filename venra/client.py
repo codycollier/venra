@@ -7,6 +7,8 @@ for cross cutting access throughout the venra package.
 
 """
 
+import functools
+
 import requests
 
 from . import config
@@ -24,14 +26,18 @@ def reset():
 
 def get_vespa_client():
     """Get or create a vespa http client and return"""
-
     global vclient
-
-    # initialize session if not already done
     if vclient is None:
-        vclient = requests.Session()
-
+        vclient = _init_client()
     return vclient
 
 
+def _init_client():
+    """Initialize and return a new requests client"""
+    vc = requests.Session()
+
+    # set a default timeout for all requests
+    vc.request = functools.partial(vc.request, timeout=config.timeout_s)
+
+    return vc
 
