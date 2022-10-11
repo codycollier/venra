@@ -157,7 +157,7 @@ def extract_group_pairs(groups, label, field_name="count()"):
     return pairs
 
 
-def feed(qdata):
+def feed(qdata, fields_only=True):
     """Yield all docs for a given query
 
     example qdata:
@@ -181,7 +181,7 @@ def feed(qdata):
     while True:
 
         # extract the docs from the response structure
-        docs = extract_docs(qresults)
+        docs = extract_docs(qresults, fields_only)
 
         # yield each doc from the search results
         for d in docs:

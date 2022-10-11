@@ -51,9 +51,11 @@ def _vespa_delete(namespace, doctype, docid):
     return vr
 
 
-def get(namespace, doctype, docid):
+def get(namespace, doctype, docid, fields_only=True):
     """Retrieve and return a document"""
     doc = _vespa_get(namespace, doctype, docid)
+    if fields_only:
+        doc = doc["fields"]
     return doc
 
 

@@ -41,8 +41,8 @@ if __name__ == "__main__":
 
     # visit and print to the limit
     limit = 5000
-    for i, d in enumerate(venra.query.feed(qdata)):
-        print(f"::> {d['id']} ({len(d['fields'])})")
+    for i, d in enumerate(venra.query.feed(qdata, fields_only=False)):
+        print(f"::> {d['id']} (fields:{len(d['fields'])})")
         if i > limit:
             print(f"reached limit: {limit}")
             break

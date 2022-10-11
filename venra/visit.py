@@ -32,7 +32,7 @@ def _vespa_get(namespace, doctype, selection=None, continuation=None):
     return vr
 
 
-def feed(namespace, doctype, selection=None):
+def feed(namespace, doctype, selection=None, fields_only=True):
     """Yield all docs of a given type and selection
 
     """
@@ -45,6 +45,8 @@ def feed(namespace, doctype, selection=None):
 
         # yield each doc from the results
         for d in vr.get("documents", []):
+            if fields_only:
+                d = d["fields"]
             yield d
 
         # check for continuation / more results

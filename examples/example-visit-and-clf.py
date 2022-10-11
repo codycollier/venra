@@ -66,7 +66,7 @@ if __name__ == "__main__":
     # note: this non-batching approach is inefficient and just for illustration
     limit = 50
     cl_count = 0
-    for i, d in enumerate(venra.visit.feed(namespace, doctype)):
+    for i, d in enumerate(venra.visit.feed(namespace, doctype, fields_only=False)):
 
         # run classification
         if text_field_name in d["fields"]:
