@@ -36,7 +36,7 @@ def _api_err_check(response):
 def _vespa_get(full_uri):
     """Internal wrapper for system api http call handling"""
     vc = client.get_vespa_client()
-    vr = requests.get(f"{full_uri}")
+    vr = vc.get(f"{full_uri}")
     _api_err_check(vr)
     vr = vr.json()
     return vr
