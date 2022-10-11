@@ -13,20 +13,32 @@ Vespa documentation:
 
 from . import client
 from . import config
+from . import exceptions
+
+
+def _vespa_get(namespace, doctype, selection=None, continuation=None):
+    """Internal wrapper for visit api http call handling"""
+    base_uri = f"{config.vespa_host_app}/document/v1/{namespace}/{doctype}/docid"
+
+    vc = client.get_vespa_client()
+
+    if selection:
+        vr = vc.get(f"{base_uri}?selection={selection}").json()
+    elif continuation:
+        vr = vc.get(f"{base_uri}?continuation={continuation}").json()
+    else:
+        vr = vc.get(f"{base_uri}").json()
+
+    return vr
 
 
 def feed(namespace, doctype, selection=None):
     """Yield all docs of a given type and selection
 
     """
-    visit_base_uri = f"{config.vespa_host_app}/document/v1/{namespace}/{doctype}/docid"
 
     # initial call
-    vc = client.get_vespa_client()
-    if selection:
-        vr = vc.get(f"{visit_base_uri}?selection={selection}").json()
-    else:
-        vr = vc.get(f"{visit_base_uri}").json()
+    vr = _vespa_get(namespace, doctype, selection, None)
 
     # page through results
     while True:
@@ -41,7 +53,7 @@ def feed(namespace, doctype, selection=None):
             break
 
         # retrieve the next set of results
-        vr = vc.get(f"{visit_base_uri}?continuation={continuation}").json()
+        vr = _vespa_get(namespace, doctype, None, continuation)
 
     return
 

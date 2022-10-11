@@ -8,6 +8,7 @@ Related Vespa documentation:
 * https://docs.vespa.ai/en/reference/query-api-reference.html
 
 
+
 """
 
 from collections import OrderedDict
@@ -17,6 +18,19 @@ import requests
 
 from . import client
 from . import config
+from . import exceptions
+
+
+def _vespa_post(qdata):
+    """Internal wrapper for search api http call handling
+
+    Related Vespa documentation:
+    * https://docs.vespa.ai/en/reference/query-api-reference.html#http-status-codes
+    """
+    base_uri = f"{config.vespa_host_app}/search/"
+    vc = client.get_vespa_client()
+    vr = vc.post(f"{base_uri}", json=qdata).json()
+    return vr
 
 
 def search(qdata):
@@ -24,10 +38,8 @@ def search(qdata):
 
     The return val is the complete query response json loaded as a dictionary
     """
-    search_base_uri = f"{config.vespa_host_app}/search/"
-    vc = client.get_vespa_client()
     qstarted = time.time()
-    qresults = requests.post(f"{search_base_uri}", json=qdata).json()
+    qresults = _vespa_post(qdata)
     qstopped = time.time()
     elapsed = qstopped - qstarted
     qresults["venra"] = {"elapsed_ms": elapsed}
@@ -161,7 +173,7 @@ def feed(qdata):
         qdata["offset"] = 0
 
     # initial query
-    qresults, _ = search(qdata)
+    qresults = search(qdata)
     total_results = qresults["root"]["fields"]["totalCount"]
 
     # page through results
@@ -182,7 +194,7 @@ def feed(qdata):
 
         # get next page of results
         qdata["offset"] += 1
-        qresults, _ = search(qdata)
+        qresults = search(qdata)
 
     return
 

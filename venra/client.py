@@ -1,10 +1,9 @@
 """venra.client
 
-A module for creating and managing the venra client. 
+A module for creating and managing the internal venra http client. 
 
-This is generally a thin wrapper around a requests session client, allowing
-for cross cutting access across the venra package.
-
+This is a thin wrapper around a requests session client, allowing
+for cross cutting access throughout the venra package.
 
 """
 
@@ -13,6 +12,7 @@ import requests
 from . import config
 
 
+# TODO - switch to a thread-local cache
 vclient = None
 
 
@@ -23,7 +23,7 @@ def reset():
 
 
 def get_vespa_client():
-    """Get or create a vespa client and return"""
+    """Get or create a vespa http client and return"""
 
     global vclient
 

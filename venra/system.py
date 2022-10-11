@@ -18,9 +18,18 @@ Related Vespa documentation:
 
 """
 
+import requests
 
 from . import client
 from . import config
+from . import exceptions
+
+
+def _vespa_get(full_uri):
+    """Internal wrapper for system api http call handling"""
+    vc = client.get_vespa_client()
+    vr = requests.get(f"{full_uri}").json()
+    return vr
 
 
 def version_app():
@@ -32,8 +41,7 @@ def version_app():
         "version": "8.13.21"
     }
     """
-    vc = client.get_vespa_client()
-    vr = vc.get(f"{config.vespa_host_app}/state/v1/version").json()
+    vr = _vespa_get(f"{config.vespa_host_app}/state/v1/version")
     return vr["version"]
 
 
@@ -46,8 +54,7 @@ def version_cfg():
         "version": "8.13.21"
     }
     """
-    vc = client.get_vespa_client()
-    vr = vc.get(f"{config.vespa_host_cfg}/state/v1/version").json()
+    vr = _vespa_get(f"{config.vespa_host_cfg}/state/v1/version")
     return vr["version"]
 
 
