@@ -34,7 +34,7 @@ qdata = {}
 qdata["yql"] = "select * from sources baz;"
 
 # Run query
-response = vquery.search(qdata)
+response = venra.query.search(qdata)
 
 # Extract results via helpers
 metrics = venra.query.extract_metrics(response)
@@ -53,8 +53,8 @@ from venra import query as vquery
 
 
 # Configure
-user_query = "foo bar baz"
-vconfig.vespa_host_app = "http://some.host.here:8080/search/"
+user_query = "machine learning"
+vconfig.vespa_host_app = "http://localhost:8080"
 
 # Build query including a grouping
 qdata = {}
