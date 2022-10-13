@@ -32,7 +32,10 @@ def _api_err_check(response):
         raise exceptions.VespaItemDoesNotExist(err)
 
     elif response.status_code != 200:
-        err = f"unexpected response {response.status_code} {response.url}"
+        err = f"unexpected response\n"
+        err += f"  response code: {response.status_code}\n"
+        err += f"  response  url: {response.url}\n"
+        err += f"  response body: {response.text}\n"
         raise exceptions.VespaRequestError(err)
 
 
