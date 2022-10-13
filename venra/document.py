@@ -8,6 +8,7 @@ Related Vespa documentation:
 * https://docs.vespa.ai/en/reference/document-v1-api-reference.html
 * https://docs.vespa.ai/en/reference/document-json-format.html
 * https://docs.vespa.ai/en/reference/document-json-format.html#document-operations
+* https://docs.vespa.ai/en/documents.html#fieldsets
 
 
 """
@@ -20,7 +21,11 @@ from . import exceptions
 
 
 def _api_err_check(response):
-    """Error handling for http responses unique to the document api"""
+    """Error handling for http responses unique to the document api
+
+    Related Vespa documentation:
+    * https://docs.vespa.ai/en/reference/document-v1-api-reference.html#http-status-codes
+    """
 
     if response.status_code == 404:
         err = f"{response.url}"
@@ -31,9 +36,9 @@ def _api_err_check(response):
         raise exceptions.VespaRequestError(err)
 
 
-def _vespa_get(namespace, doctype, docid):
+def _vespa_get(namespace, doctype, docid, fieldset="all"):
     """Internal wrapper for document api and http get handling"""
-    base_uri = f"{config.vespa_host_app}/document/v1/{namespace}/{doctype}/docid/{docid}"
+    base_uri = f"{config.vespa_host_app}/document/v1/{namespace}/{doctype}/docid/{docid}?fieldSet=[{fieldset}]"
     vc = client.get_vespa_client()
     vr = vc.get(f"{base_uri}")
     _api_err_check(vr)
@@ -68,9 +73,9 @@ def _vespa_delete(namespace, doctype, docid):
     return
 
 
-def get(namespace, doctype, docid, fields_only=True):
+def get(namespace, doctype, docid, fieldset="all", fields_only=True):
     """Retrieve and return a document"""
-    doc = _vespa_get(namespace, doctype, docid)
+    doc = _vespa_get(namespace, doctype, docid, fieldset)
     if fields_only:
         doc = doc["fields"]
     return doc
