@@ -39,12 +39,14 @@ if __name__ == "__main__":
     qdata["model.type"] = "weakAnd"
 
 
-    # visit and print to the limit
+    # query and print to the limit
     limit = 5000
     for i, d in enumerate(venra.query.feed(qdata, fields_only=False)):
-        print(f"::> {d['id']} (fields:{len(d['fields'])})")
+
         if i > limit:
             print(f"reached limit: {limit}")
             break
+
+        print(f"::> {d['id']} (fields:{len(d['fields'])})")
 
 

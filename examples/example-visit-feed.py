@@ -34,9 +34,9 @@ if __name__ == "__main__":
     # visit and print to the limit
     limit = 5000
     for i, d in enumerate(venra.visit.feed(namespace, doctype, fields_only=False)):
-        print(f"::> {d['id']} (fields:{len(d['fields'])})")
         if i > limit:
             print(f"reached limit: {limit}")
             break
+        print(f"::> {d['id']} (fields:{len(d['fields'])})")
 
 

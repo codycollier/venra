@@ -68,6 +68,11 @@ if __name__ == "__main__":
     cl_count = 0
     for i, d in enumerate(venra.visit.feed(namespace, doctype, fields_only=False)):
 
+        # stop after limit is reached
+        if i > limit:
+            print(f"reached limit: {limit}")
+            break
+
         # run classification
         if text_field_name in d["fields"]:
             cls, score = classify(d["fields"][text_field_name])
@@ -75,10 +80,5 @@ if __name__ == "__main__":
             cl_count += 1
         else:
             print(f"::> {d['id']} :: no text field")
-
-        # stop after limit is reached
-        if i > limit:
-            print(f"reached limit: {limit}")
-            break
 
 
