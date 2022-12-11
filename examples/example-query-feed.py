@@ -16,11 +16,11 @@ if __name__ == "__main__":
     if len(sys.argv) != 3:
         print("")
         print("Usage:")
-        print("> ./example-query-feed.py <doctype> <query>")
+        print("> ./example-search-feed.py <doctype> <query>")
         print("")
         print("Example:")
         print('> export VESPA_HOST_APP="http://192.168.100.30:8080"')
-        print("> ./example-query-feed.py fruitdocs orange")
+        print("> ./example-search-feed.py fruitdocs orange")
         print("")
         sys.exit(1)
 
@@ -43,7 +43,7 @@ if __name__ == "__main__":
     limit = 5000
     for i, d in enumerate(venra.query.feed(qdata, fields_only=False)):
 
-        if i > limit:
+        if i >= limit:
             print(f"reached limit: {limit}")
             break
 

@@ -69,7 +69,7 @@ if __name__ == "__main__":
     for i, d in enumerate(venra.visit.feed(namespace, doctype, fields_only=False)):
 
         # stop after limit is reached
-        if i > limit:
+        if i >= limit:
             print(f"reached limit: {limit}")
             break
 
