@@ -30,12 +30,17 @@ def _vespa_get(namespace, doctype, selection=None, continuation=None):
 
     vc = client.get_vespa_client()
 
-    if selection:
-        vr = vc.get(f"{base_uri}?selection={selection}")
-    elif continuation:
-        vr = vc.get(f"{base_uri}?continuation={continuation}")
-    else:
+    if not selection and not continuation:
         vr = vc.get(f"{base_uri}")
+
+    elif not selection and continuation:
+        vr = vc.get(f"{base_uri}?continuation={continuation}")
+
+    elif selection and not continuation:
+        vr = vc.get(f"{base_uri}?selection={selection}")
+
+    elif selection and continuation:
+        vr = vc.get(f"{base_uri}?selection={selection}&continuation={continuation}")
 
     _api_err_check(vr) 
     vr = vr.json()
@@ -66,7 +71,7 @@ def feed(namespace, doctype, selection=None, fields_only=True):
             break
 
         # retrieve the next set of results
-        vr = _vespa_get(namespace, doctype, None, continuation)
+        vr = _vespa_get(namespace, doctype, selection, continuation)
 
     return
 
