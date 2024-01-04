@@ -36,7 +36,7 @@ def _api_err_check(response):
         raise exceptions.VespaRequestError(err)
 
 
-def _vespa_get(full_uri):
+def _vespa_http_get(full_uri):
     """Internal wrapper for system api http call handling"""
     vc = client.get_vespa_client()
     vr = vc.get(f"{full_uri}")
@@ -54,7 +54,7 @@ def version_app():
         "version": "8.13.21"
     }
     """
-    vr = _vespa_get(f"{config.vespa_host_app}/state/v1/version")
+    vr = _vespa_http_get(f"{config.vespa_host_app}/state/v1/version")
     return vr["version"]
 
 
@@ -67,7 +67,7 @@ def version_cfg():
         "version": "8.13.21"
     }
     """
-    vr = _vespa_get(f"{config.vespa_host_cfg}/state/v1/version")
+    vr = _vespa_http_get(f"{config.vespa_host_cfg}/state/v1/version")
     return vr["version"]
 
 

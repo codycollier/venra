@@ -39,7 +39,7 @@ def _api_err_check(response):
         raise exceptions.VespaRequestError(err)
 
 
-def _vespa_get(namespace, doctype, docid, fieldset="all"):
+def _vespa_http_get(namespace, doctype, docid, fieldset="all"):
     """Internal wrapper for document api and http get handling"""
     base_uri = f"{config.vespa_host_app}/document/v1/{namespace}/{doctype}/docid/{docid}?fieldSet=[{fieldset}]"
     vc = client.get_vespa_client()
@@ -49,7 +49,7 @@ def _vespa_get(namespace, doctype, docid, fieldset="all"):
     return vr
 
 
-def _vespa_post(namespace, doctype, docid, doc):
+def _vespa_http_post(namespace, doctype, docid, doc):
     """Internal wrapper for document api and http post handling"""
     base_uri = f"{config.vespa_host_app}/document/v1/{namespace}/{doctype}/docid/{docid}"
     vc = client.get_vespa_client()
@@ -58,7 +58,7 @@ def _vespa_post(namespace, doctype, docid, doc):
     return
 
 
-def _vespa_put(namespace, doctype, docid, update):
+def _vespa_http_put(namespace, doctype, docid, update):
     """Internal wrapper for document api and http put handling"""
     base_uri = f"{config.vespa_host_app}/document/v1/{namespace}/{doctype}/docid/{docid}"
     vc = client.get_vespa_client()
@@ -67,7 +67,7 @@ def _vespa_put(namespace, doctype, docid, update):
     return
 
 
-def _vespa_delete(namespace, doctype, docid):
+def _vespa_http_delete(namespace, doctype, docid):
     """Internal wrapper for document api and http delete handling"""
     base_uri = f"{config.vespa_host_app}/document/v1/{namespace}/{doctype}/docid/{docid}"
     vc = client.get_vespa_client()
@@ -78,7 +78,7 @@ def _vespa_delete(namespace, doctype, docid):
 
 def get(namespace, doctype, docid, fieldset="all", fields_only=True):
     """Retrieve and return a document"""
-    doc = _vespa_get(namespace, doctype, docid, fieldset)
+    doc = _vespa_http_get(namespace, doctype, docid, fieldset)
     if fields_only:
         doc = doc["fields"]
     return doc
@@ -87,7 +87,7 @@ def get(namespace, doctype, docid, fieldset="all", fields_only=True):
 def put(namespace, doctype, docid, doc):
     """Add or update a whole document"""
     doc_fields = {"fields": doc}
-    _vespa_post(namespace, doctype, docid, doc_fields)
+    _vespa_http_post(namespace, doctype, docid, doc_fields)
     return True
 
 
@@ -111,13 +111,13 @@ def update(namespace, doctype, docid, operations):
     partial_update = {"fields": {}}
     for operation, field_name, field_value in operations:
         partial_update["fields"][field_name] = {operation: field_value}
-    _vespa_put(namespace, doctype, docid, partial_update)
+    _vespa_http_put(namespace, doctype, docid, partial_update)
     return True
 
 
 def remove(namespace, doctype, docid):
     """Delete a document"""
-    _vespa_delete(namespace, doctype, docid)
+    _vespa_http_delete(namespace, doctype, docid)
     return True
 
 

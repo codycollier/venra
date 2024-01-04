@@ -34,7 +34,7 @@ def _api_err_check(response):
         raise exceptions.VespaRequestError(err)
 
 
-def _vespa_post(qdata):
+def _vespa_http_post(qdata):
     """Internal wrapper for search api http call handling"""
     base_uri = f"{config.vespa_host_app}/search/"
     vc = client.get_vespa_client()
@@ -50,7 +50,7 @@ def search(qdata):
     The return val is the complete query response json loaded as a dictionary
     """
     qstarted = time.time()
-    qresults = _vespa_post(qdata)
+    qresults = _vespa_http_post(qdata)
     qstopped = time.time()
     elapsed = qstopped - qstarted
     qresults["venra"] = {"elapsed_ms": elapsed}

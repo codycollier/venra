@@ -24,7 +24,7 @@ def _api_err_check(response):
         raise exceptions.VespaRequestError(err)
 
 
-def _vespa_get(namespace, doctype, selection=None, continuation=None):
+def _vespa_http_get(namespace, doctype, selection=None, continuation=None):
     """Internal wrapper for visit api http call handling"""
     base_uri = f"{config.vespa_host_app}/document/v1/{namespace}/{doctype}/docid"
 
@@ -54,7 +54,7 @@ def feed(namespace, doctype, selection=None, fields_only=True):
     """
 
     # initial call
-    vr = _vespa_get(namespace, doctype, selection, None)
+    vr = _vespa_http_get(namespace, doctype, selection, None)
 
     # page through results
     while True:
@@ -71,7 +71,7 @@ def feed(namespace, doctype, selection=None, fields_only=True):
             break
 
         # retrieve the next set of results
-        vr = _vespa_get(namespace, doctype, selection, continuation)
+        vr = _vespa_http_get(namespace, doctype, selection, continuation)
 
     return
 
