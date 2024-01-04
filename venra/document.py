@@ -91,7 +91,7 @@ def put(namespace, doctype, docid, doc):
     return True
 
 
-def update(namespace, doctype, docid, operations):
+def update(namespace, doctype, docid, operations, condition=False, create=False):
     """Apply a partial update using the assign, add, or remove operator
 
     operations = [("assign", "field_name_here", "field_value_here"), ...]
@@ -108,7 +108,12 @@ def update(namespace, doctype, docid, operations):
         }
     }
     """
-    partial_update = {"fields": {}}
+    partial_update = {}
+    if create:
+        partial_update["create"] = True
+    if condition:
+        partial_update["condition"] = f"{condition}"
+    partial_update["fields"] = {}
     for operation, field_name, field_value in operations:
         partial_update["fields"][field_name] = {operation: field_value}
     _vespa_http_put(namespace, doctype, docid, partial_update)
