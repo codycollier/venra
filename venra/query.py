@@ -204,7 +204,7 @@ def feed(qdata, fields_only=True):
             break
 
         # get next page of results
-        qdata["offset"] += doc_count
+        qdata["offset"] = doc_count
         qresults = search(qdata)
 
     return
