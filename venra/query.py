@@ -11,6 +11,7 @@ Related Vespa documentation:
 """
 
 from collections import OrderedDict
+from pprint import pprint
 import time
 
 import requests
@@ -85,6 +86,11 @@ def extract_docs(qresults, fields_only=True):
 
     # return early if results are empty
     if not qresults or qresults["root"]["fields"]["totalCount"] == 0:
+        return docs
+
+    # catch the scenario from vespa where
+    # there are totalCount > 0 but no results
+    if "children" not in qresults["root"]:
         return docs
 
     # collect the docs
@@ -200,7 +206,7 @@ def feed(qdata, fields_only=True):
             yield d
 
         # stop if we reached the end of the results
-        if doc_count >= total_results:
+        if (doc_count >= total_results) or (len(docs) <= 0):
             break
 
         # get next page of results
