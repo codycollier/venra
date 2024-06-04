@@ -66,7 +66,7 @@ def extract_metrics(qresults):
     """
     qmet = {}
     qmet["matchcount"] = qresults["root"]["fields"]["totalCount"]
-    qmet["totalcount"] = qresults["root"]["coverage"]["documents"]
+    qmet["doccount"] = qresults["root"]["coverage"]["documents"]
     qmet["coverage"] = qresults["root"]["coverage"]["coverage"]
     if "timing" in qresults:
         qmet["querytime"] = qresults["timing"]["querytime"]
