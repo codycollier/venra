@@ -65,14 +65,24 @@ def extract_metrics(qresults):
     from the query response.
     """
     qmet = {}
+
+    # Total number of matched docs for the query
     qmet["matchcount"] = qresults["root"]["fields"]["totalCount"]
-    qmet["doccount"] = qresults["root"]["coverage"]["documents"]
+
+    # Total number of documents for the queried doc type(s)
+    qmet["fullcount"] = qresults["root"]["coverage"]["documents"]
+
+    # The percentage of the total number of docs covered during query exec
     qmet["coverage"] = qresults["root"]["coverage"]["coverage"]
+
+    # Internal phase timings
     if "timing" in qresults:
         qmet["querytime"] = qresults["timing"]["querytime"]
         qmet["searchtime"] = qresults["timing"]["searchtime"]
         qmet["summaryfetchtime"] = qresults["timing"]["summaryfetchtime"]
+
     qmet["elapsed_ms"] = round(1000 * qresults["venra"]["elapsed_ms"], 3)
+
     return qmet
 
 
