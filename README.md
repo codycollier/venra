@@ -28,7 +28,7 @@ for r, doc in enumerate(docs):
     print(f"rank: {r} >> {doc.some_id} title: {doc.title}")
 ```
 
-Note: This library is under active development and the api is currently unstable.
+Note: This library is under active development and the api could change in the future.
 
 
 
