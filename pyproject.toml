@@ -1,7 +1,7 @@
 [project]
 name = "venra"
 version = "0.1.8"
-description = 'Venra provides a simple, high-level api for vespa.ai.',
+description = "Venra provides a simple, high-level api for vespa.ai."
 authors = [
     { name = "Cody Collier", email = "cmcollier@gmail.com" }
 ]
