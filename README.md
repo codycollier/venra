@@ -2,7 +2,6 @@
 
 [![Project Status: WIP](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 ![Tests](https://github.com/codycollier/venra/workflows/Tests/badge.svg)
-![Release](https://github.com/codycollier/venra/workflows/Python%20Package%20Release/badge.svg)
 [![PyPI version](https://badge.fury.io/py/venra.svg)](https://badge.fury.io/py/venra)
 
 
