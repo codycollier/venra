@@ -1,0 +1,45 @@
+# Manual PyPI publish using trusted publishing (OIDC).
+#
+# One-time PyPI setup (https://pypi.org/manage/project/venra/settings/publishing/):
+#   1. Add a pending publisher:
+#        Owner:       codycollier
+#        Repository:  venra
+#        Workflow:    publish-pypi.yml
+#        Environment: pypi
+#   2. Create a GitHub environment named "pypi" (Settings → Environments) if you
+#      want optional approval gates before each release.
+#
+# Bump [project].version in pyproject.toml before running this workflow.
+
+name: Publish to PyPI
+
+on:
+  workflow_dispatch:
+
+permissions:
+  id-token: write # required for PyPI trusted publishing
+
+jobs:
+  publish:
+    name: Build and publish
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/p/venra
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install build backend
+        run: python -m pip install --upgrade pip build hatchling
+
+      - name: Build sdist and wheel
+        run: python -m build
+
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
